@@ -372,7 +372,11 @@ public class Principal extends javax.swing.JFrame {
             }
 
             Pelicula p = new Pelicula(director, nombre, categoria, actor, productora, idioma, dubs, subs, duracion);
-
+            
+            AdminPelicula apeli= new AdminPelicula("./peliculas.txt");
+            apeli.agregarPelicula(p);
+            apeli.escribirArchivo();
+            System.out.println("agregaada");
             DefaultTreeModel m = (DefaultTreeModel)jt_peliculas.getModel();
             DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)m.getRoot();
 
@@ -440,10 +444,12 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
 
+            
             JOptionPane.showMessageDialog(jd_movies,"Agregado con éxito");
             m.reload();
             limpiarPeliculas();
         }catch(Exception e){
+            e.printStackTrace();
             JOptionPane.showMessageDialog(jd_movies,"Error");
         }
     }//GEN-LAST:event_bt_peliculas_agregarMouseClicked

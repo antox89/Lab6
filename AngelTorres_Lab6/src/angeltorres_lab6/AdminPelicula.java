@@ -45,8 +45,8 @@ public class AdminPelicula {
         BufferedWriter bw = null;
         
         try{
-            fw=new FileWriter(archivo);
-            bw= new BufferedWriter(bw);
+            fw=new FileWriter(archivo,true);
+            bw= new BufferedWriter(fw);
             
             for (Pelicula peli : listaPeliculas) {
                 bw.write(peli.getNombre()+";");
