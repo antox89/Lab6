@@ -1,6 +1,8 @@
 
 package angeltorres_lab6;
 
+import java.io.File;
+import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -16,6 +18,18 @@ public class NeSfliS extends javax.swing.JFrame {
     public NeSfliS() {
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        jmi_inicio_logout.setEnabled(false);
+        jmi_administrar_peliculas.setEnabled(false);
+        jmi_administrar_series.setEnabled(false);
+        
+        Usuario admin = new Usuario("admin", "admin", 2001);
+        Usuario user1 = new Usuario("user1", "user1", 1001);
+        Usuario user2 = new Usuario("user2", "user2", 1002);
+        
+        usuario.add(admin);
+        usuario.add(user1);
+        usuario.add(user2);
     }
 
     
@@ -61,6 +75,14 @@ public class NeSfliS extends javax.swing.JFrame {
         jmi_ppm_peliculas_ver = new javax.swing.JMenuItem();
         jmi_ppm_peliculas_edir = new javax.swing.JMenuItem();
         jmi_ppm_peliculas_delete = new javax.swing.JMenuItem();
+        jd_login = new javax.swing.JDialog();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        tf_user = new javax.swing.JTextField();
+        tf_pass = new javax.swing.JPasswordField();
+        bt_signIn = new javax.swing.JButton();
+        ppm_prod = new javax.swing.JPopupMenu();
+        jmi_ver = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jm_menu_inico = new javax.swing.JMenu();
@@ -156,6 +178,11 @@ public class NeSfliS extends javax.swing.JFrame {
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Series");
         treeNode1.add(treeNode2);
         jtree_producciones.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jtree_producciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtree_produccionesMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtree_producciones);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -321,12 +348,71 @@ public class NeSfliS extends javax.swing.JFrame {
         ppm_peliculas.add(jmi_ppm_peliculas_edir);
 
         jmi_ppm_peliculas_delete.setText("Eliminar");
+        jmi_ppm_peliculas_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_ppm_peliculas_deleteActionPerformed(evt);
+            }
+        });
         ppm_peliculas.add(jmi_ppm_peliculas_delete);
+
+        jLabel7.setText("Usuario:");
+
+        jLabel8.setText("Password:");
+
+        bt_signIn.setText("Sign In");
+        bt_signIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_signInActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jd_loginLayout = new javax.swing.GroupLayout(jd_login.getContentPane());
+        jd_login.getContentPane().setLayout(jd_loginLayout);
+        jd_loginLayout.setHorizontalGroup(
+            jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_loginLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addGroup(jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(23, 23, 23)
+                .addGroup(jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tf_user)
+                    .addComponent(tf_pass, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jd_loginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bt_signIn)
+                .addGap(93, 93, 93))
+        );
+        jd_loginLayout.setVerticalGroup(
+            jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jd_loginLayout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(tf_user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jd_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(26, 26, 26)
+                .addComponent(bt_signIn)
+                .addContainerGap(43, Short.MAX_VALUE))
+        );
+
+        jmi_ver.setText("Ver Detalles");
+        jmi_ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_verActionPerformed(evt);
+            }
+        });
+        ppm_prod.add(jmi_ver);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NeSfliS");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Ver Películas");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -336,9 +422,19 @@ public class NeSfliS extends javax.swing.JFrame {
         jm_menu_inico.setText("Inicio");
 
         jmi_inicio_login.setText("Sign In");
+        jmi_inicio_login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_inicio_loginActionPerformed(evt);
+            }
+        });
         jm_menu_inico.add(jmi_inicio_login);
 
         jmi_inicio_logout.setText("Sign Out");
+        jmi_inicio_logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_inicio_logoutActionPerformed(evt);
+            }
+        });
         jm_menu_inico.add(jmi_inicio_logout);
 
         jmi_inicio_salir.setText("Salir");
@@ -368,7 +464,7 @@ public class NeSfliS extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(322, Short.MAX_VALUE)
+                .addContainerGap(296, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(184, 184, 184))
         );
@@ -386,15 +482,65 @@ public class NeSfliS extends javax.swing.JFrame {
     private void jmi_administrar_peliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_administrar_peliculasActionPerformed
         
         DefaultTreeModel m = (DefaultTreeModel)jtree_producciones.getModel();
+        
         DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)m.getRoot();
         
         AdminPelicula ap = new AdminPelicula("./peliculas.txt");
+        ap.cargarArchivo();
         
-        for (int i = 0; i < ap.getListaPeliculas().size(); i++) {
-            m.setRoot(new DefaultMutableTreeNode(ap.getListaPeliculas().get(i).getNombre()));
+        String nombre, categoria, actor, director,productora, idioma,subs,dubs;
+        int duracion;
+        
+        int centinela=-1;
+        int ct=0;
+        for (Pelicula pe : ap.getListaPeliculas()) {
+            
+            nombre = ap.getListaPeliculas().get(ct).getNombre();
+            categoria = ap.getListaPeliculas().get(ct).getCategoria();
+            actor = ap.getListaPeliculas().get(ct).getActor();
+            productora = ap.getListaPeliculas().get(ct).getProductora();
+            idioma = ap.getListaPeliculas().get(ct).getIdioma();
+            subs = ap.getListaPeliculas().get(ct).getSubtitulos();
+            dubs = ap.getListaPeliculas().get(ct).getDoblaje();
+            director = ap.getListaPeliculas().get(ct).getDirector();
+            duracion = ap.getListaPeliculas().get(ct).getDuracion();
+            
+            for (int i = 0; i < raiz.getChildCount(); i++) {
+                
+                if(raiz.getChildAt(i).toString().equals(categoria)){
+                    DefaultMutableTreeNode n = 
+                            new DefaultMutableTreeNode(
+                                    new Pelicula(director, nombre, categoria, 
+                                            actor, productora, idioma, dubs, 
+                                            subs, duracion));
+                    ((DefaultMutableTreeNode)raiz.getChildAt(i)).add(n);
+                    centinela=1;
+                }
+            }
+            
+            if(centinela ==-1){
+                DefaultMutableTreeNode cat = 
+                            new DefaultMutableTreeNode(categoria);
+                DefaultMutableTreeNode n = 
+                        new DefaultMutableTreeNode(
+                                new Pelicula(director, nombre, categoria, actor, 
+                                        productora, idioma, dubs, subs, duracion));
+                n.add(cat);
+                raiz.add(n);
+            }
+            
+            m.reload();
+            ct++;
             
         }
         
+        
+        
+        
+
+    //File f = new File("./peliculas.txt");
+        //m.setRoot(new DefaultMutableTreeNode("hola"));
+        //listar_no_orden(f, (DefaultMutableTreeNode)m.getRoot());
         
         jd_movies.pack();
         jd_movies.setModal(true);
@@ -402,17 +548,17 @@ public class NeSfliS extends javax.swing.JFrame {
         jd_movies.setVisible(true);
     }//GEN-LAST:event_jmi_administrar_peliculasActionPerformed
 
-    public void listar_no_orden(AdminPelicula p_raiz, DefaultMutableTreeNode nodo){
+    public void listar_no_orden(File p_raiz, DefaultMutableTreeNode nodo){
         
         try{
-            for (Pelicula temp : p_raiz.getListaPeliculas()) {
-                if(temp instanceof Pelicula){
-                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getCategoria());
+            for (File temp : p_raiz.listFiles()) {
+                if(temp.isFile()){
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getName());
                     nodo.add(n);
                 }else{
-                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getName());
                     nodo.add(n);
-                    listar_no_orden(p_raiz, n);
+                    listar_no_orden(temp, n);
                 }
             }
         }catch(Exception e){
@@ -594,6 +740,87 @@ public class NeSfliS extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmi_ppm_peliculas_verActionPerformed
 
+    private void jmi_ppm_peliculas_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_ppm_peliculas_deleteActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "¿Desea eliminar la película?","Eliminar Película",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if(response == JOptionPane.OK_OPTION){
+            DefaultTreeModel m
+                    = (DefaultTreeModel)jt_peliculas.getModel();
+            m.removeNodeFromParent(nodo_seleccionado);
+            m.reload();
+            AdminPelicula ap = new AdminPelicula("./peliculas.txt");
+            
+        }
+    }//GEN-LAST:event_jmi_ppm_peliculas_deleteActionPerformed
+
+    private void bt_signInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_signInActionPerformed
+        
+        for (Usuario user : usuario) {
+            if(tf_user.getText().equals(user.getNombre()) && tf_pass.getText().equals(user.getPassword())){
+                System.out.println("welcome!");
+                
+                jd_login.dispose();
+                tf_pass.setText("");
+                tf_user.setText("");
+                
+                jmi_administrar_peliculas.setEnabled(true);
+                jmi_administrar_series.setEnabled(false);
+                
+                jmi_inicio_logout.setEnabled(true);
+                jmi_inicio_login.setEnabled(false);
+                break;
+            }else{
+                System.out.println("No existe");
+            }
+        }
+    }//GEN-LAST:event_bt_signInActionPerformed
+
+    private void jmi_inicio_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_inicio_loginActionPerformed
+        jd_login.pack();
+        jd_login.setModal(true);
+        jd_login.setLocationRelativeTo(this);
+        jd_login.setVisible(true);
+    }//GEN-LAST:event_jmi_inicio_loginActionPerformed
+
+    private void jmi_inicio_logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_inicio_logoutActionPerformed
+        
+        jmi_administrar_peliculas.setEnabled(false);
+        jmi_administrar_series.setEnabled(false);
+        
+        jmi_inicio_login.setEnabled(true);
+        jmi_inicio_logout.setEnabled(false);
+    }//GEN-LAST:event_jmi_inicio_logoutActionPerformed
+
+    private void jtree_produccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtree_produccionesMouseClicked
+        
+        if(evt.isMetaDown()){
+            int row = jt_peliculas.getClosestRowForLocation(evt.getX(), evt.getY());
+            jt_peliculas.setSelectionRow(row);
+            
+            Object v1 = jt_peliculas.getSelectionPath().getLastPathComponent();
+            nodo_seleccionado = (DefaultMutableTreeNode)v1;
+            if(nodo_seleccionado.getUserObject() instanceof Pelicula){
+                pelicula_seleccionada = (Pelicula)nodo_seleccionado.getUserObject();
+                ppm_prod.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+        
+    }//GEN-LAST:event_jtree_produccionesMouseClicked
+
+    private void jmi_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_verActionPerformed
+        
+        ta_verDetalles.append("Título: "+pelicula_seleccionada.getNombre()+"\n"
+                +"Duración: "+pelicula_seleccionada.getDuracion()+"\n"
+                +"Actor: "+pelicula_seleccionada.getActor()+"\n"
+                +"Director: "+pelicula_seleccionada.getDirector()+"\n"
+                +"Productora: "+pelicula_seleccionada.getProductora()+"\n"
+                +"Idioma: "+pelicula_seleccionada.getIdioma()+"\n"
+                +"Tiene Doblaje: "+pelicula_seleccionada.getDoblaje()+"\n"
+                +"Tiene Subs en Español: "+pelicula_seleccionada.getSubtitulos()+"\n"
+                );
+        
+    }//GEN-LAST:event_jmi_verActionPerformed
+
     public void limpiarPeliculas(){
         tf_peliculas_nombre.setText("");
         cb_peliculas_cat.setSelectedIndex(0);
@@ -648,6 +875,7 @@ public class NeSfliS extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_peliculas_agregar;
     private javax.swing.JButton bt_peliculas_guardar;
+    private javax.swing.JButton bt_signIn;
     private javax.swing.ButtonGroup btg_peliculas_dub;
     private javax.swing.ButtonGroup btg_peliculas_subs;
     private javax.swing.JComboBox<String> cb_peliculas_cat;
@@ -661,12 +889,15 @@ public class NeSfliS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_movies;
     private javax.swing.JDialog jd_series;
     private javax.swing.JMenu jm_menu_administrar;
@@ -679,22 +910,26 @@ public class NeSfliS extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_ppm_peliculas_delete;
     private javax.swing.JMenuItem jmi_ppm_peliculas_edir;
     private javax.swing.JMenuItem jmi_ppm_peliculas_ver;
+    private javax.swing.JMenuItem jmi_ver;
     private javax.swing.JTree jt_peliculas;
     private javax.swing.JTree jtree_producciones;
     private javax.swing.JPopupMenu ppm_peliculas;
+    private javax.swing.JPopupMenu ppm_prod;
     private javax.swing.JRadioButton rbm_dubs_no;
     private javax.swing.JRadioButton rbm_dubs_si;
     private javax.swing.JRadioButton rbm_subs_no;
     private javax.swing.JRadioButton rbm_subs_si;
     private javax.swing.JSpinner sp_peliculas_duracion;
     private javax.swing.JTextArea ta_verDetalles;
+    private javax.swing.JPasswordField tf_pass;
     private javax.swing.JTextField tf_peliculas_actori;
     private javax.swing.JTextField tf_peliculas_director;
     private javax.swing.JTextField tf_peliculas_idioma;
     private javax.swing.JTextField tf_peliculas_nombre;
     private javax.swing.JTextField tf_peliculas_productora;
+    private javax.swing.JTextField tf_user;
     // End of variables declaration//GEN-END:variables
     Pelicula pelicula_seleccionada;
     DefaultMutableTreeNode nodo_seleccionado;
-    
+    ArrayList<Usuario> usuario = new ArrayList();
 }
