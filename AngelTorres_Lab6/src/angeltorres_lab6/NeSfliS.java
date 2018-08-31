@@ -88,6 +88,7 @@ public class NeSfliS extends javax.swing.JFrame {
         jm_menu_inico = new javax.swing.JMenu();
         jmi_inicio_login = new javax.swing.JMenuItem();
         jmi_inicio_logout = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jmi_inicio_salir = new javax.swing.JMenuItem();
         jm_menu_administrar = new javax.swing.JMenu();
         jmi_administrar_peliculas = new javax.swing.JMenuItem();
@@ -436,8 +437,14 @@ public class NeSfliS extends javax.swing.JFrame {
             }
         });
         jm_menu_inico.add(jmi_inicio_logout);
+        jm_menu_inico.add(jSeparator1);
 
         jmi_inicio_salir.setText("Salir");
+        jmi_inicio_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_inicio_salirActionPerformed(evt);
+            }
+        });
         jm_menu_inico.add(jmi_inicio_salir);
 
         jMenuBar1.add(jm_menu_inico);
@@ -750,6 +757,7 @@ public class NeSfliS extends javax.swing.JFrame {
             m.reload();
             AdminPelicula ap = new AdminPelicula("./peliculas.txt");
             
+            
         }
     }//GEN-LAST:event_jmi_ppm_peliculas_deleteActionPerformed
 
@@ -820,6 +828,15 @@ public class NeSfliS extends javax.swing.JFrame {
                 );
         
     }//GEN-LAST:event_jmi_verActionPerformed
+
+    private void jmi_inicio_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_inicio_salirActionPerformed
+        int response = JOptionPane.showConfirmDialog(this, "¿Salir del sistema?","Salir",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+        
+        if(response == JOptionPane.OK_OPTION){
+            System.exit(0);
+            
+        }
+    }//GEN-LAST:event_jmi_inicio_salirActionPerformed
 
     public void limpiarPeliculas(){
         tf_peliculas_nombre.setText("");
@@ -897,6 +914,7 @@ public class NeSfliS extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JDialog jd_login;
     private javax.swing.JDialog jd_movies;
     private javax.swing.JDialog jd_series;
