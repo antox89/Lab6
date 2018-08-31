@@ -1,6 +1,7 @@
 
 package angeltorres_lab6;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -9,10 +10,10 @@ import javax.swing.tree.DefaultTreeModel;
  *
  * @author angel
  */
-public class Principal extends javax.swing.JFrame {
+public class NeSfliS extends javax.swing.JFrame {
 
     
-    public Principal() {
+    public NeSfliS() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -49,6 +50,10 @@ public class Principal extends javax.swing.JFrame {
         tf_peliculas_idioma = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         tf_peliculas_productora = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ta_verDetalles = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtree_producciones = new javax.swing.JTree();
         jd_series = new javax.swing.JDialog();
         btg_peliculas_subs = new javax.swing.ButtonGroup();
         btg_peliculas_dub = new javax.swing.ButtonGroup();
@@ -56,6 +61,7 @@ public class Principal extends javax.swing.JFrame {
         jmi_ppm_peliculas_ver = new javax.swing.JMenuItem();
         jmi_ppm_peliculas_edir = new javax.swing.JMenuItem();
         jmi_ppm_peliculas_delete = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jm_menu_inico = new javax.swing.JMenu();
         jmi_inicio_login = new javax.swing.JMenuItem();
@@ -140,6 +146,18 @@ public class Principal extends javax.swing.JFrame {
 
         jLabel6.setText("Productora:");
 
+        ta_verDetalles.setColumns(20);
+        ta_verDetalles.setRows(5);
+        jScrollPane1.setViewportView(ta_verDetalles);
+
+        treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Producciones");
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Peliculas");
+        treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Series");
+        treeNode1.add(treeNode2);
+        jtree_producciones.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane2.setViewportView(jtree_producciones);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -198,7 +216,11 @@ public class Principal extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addGap(6, 6, 6)
                                     .addComponent(tf_peliculas_productora, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +239,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(sp_peliculas_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel13))
-                        .addGap(18, 18, 18)
+                        .addGap(22, 22, 22)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(cb_peliculas_cat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -247,11 +269,16 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(rbm_dubs_si)
                             .addComponent(rbm_dubs_no)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bt_peliculas_guardar)
                             .addComponent(bt_peliculas_agregar))
-                        .addGap(40, 40, 40))))
+                        .addGap(40, 40, 40))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout jd_moviesLayout = new javax.swing.GroupLayout(jd_movies.getContentPane());
@@ -277,6 +304,11 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jmi_ppm_peliculas_ver.setText("Ver");
+        jmi_ppm_peliculas_ver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_ppm_peliculas_verActionPerformed(evt);
+            }
+        });
         ppm_peliculas.add(jmi_ppm_peliculas_ver);
 
         jmi_ppm_peliculas_edir.setText("Modificar");
@@ -293,6 +325,13 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("NeSfliS");
+
+        jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jm_menu_inico.setText("Inicio");
 
@@ -328,23 +367,59 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(322, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(184, 184, 184))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 406, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(100, 100, 100)
+                .addComponent(jButton1)
+                .addContainerGap(274, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_administrar_peliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_administrar_peliculasActionPerformed
+        
+        DefaultTreeModel m = (DefaultTreeModel)jtree_producciones.getModel();
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode)m.getRoot();
+        
+        AdminPelicula ap = new AdminPelicula("./peliculas.txt");
+        
+        for (int i = 0; i < ap.getListaPeliculas().size(); i++) {
+            m.setRoot(new DefaultMutableTreeNode(ap.getListaPeliculas().get(i).getNombre()));
+            
+        }
+        
+        
         jd_movies.pack();
         jd_movies.setModal(true);
         jd_movies.setLocationRelativeTo(this);
         jd_movies.setVisible(true);
     }//GEN-LAST:event_jmi_administrar_peliculasActionPerformed
 
+    public void listar_no_orden(AdminPelicula p_raiz, DefaultMutableTreeNode nodo){
+        
+        try{
+            for (Pelicula temp : p_raiz.getListaPeliculas()) {
+                if(temp instanceof Pelicula){
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getCategoria());
+                    nodo.add(n);
+                }else{
+                    DefaultMutableTreeNode n = new DefaultMutableTreeNode(temp.getNombre());
+                    nodo.add(n);
+                    listar_no_orden(p_raiz, n);
+                }
+            }
+        }catch(Exception e){
+            
+        }
+    }
+    
     private void bt_peliculas_agregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_peliculas_agregarMouseClicked
 
         String nombre, categoria, actor, director,productora, idioma,subs,dubs;
@@ -356,7 +431,7 @@ public class Principal extends javax.swing.JFrame {
             categoria = cb_peliculas_cat.getSelectedItem().toString();
             actor = tf_peliculas_actori.getText();
             director = tf_peliculas_director.getText();
-            productora = tf_peliculas_director.getText();
+            productora = tf_peliculas_productora.getText();
             duracion = (Integer)sp_peliculas_duracion.getValue();
             idioma = tf_peliculas_idioma.getText();
             
@@ -458,7 +533,6 @@ public class Principal extends javax.swing.JFrame {
 
         try{
             pelicula_seleccionada.setCategoria(cb_peliculas_cat.getSelectedItem().toString());
-            //pelicula_seleccionada.setClasificacion(tf_boleteria_clasificacion.getText());
             pelicula_seleccionada.setDuracion((Integer)sp_peliculas_duracion.getValue());
             pelicula_seleccionada.setNombre(tf_peliculas_nombre.getText());
 
@@ -495,6 +569,31 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmi_ppm_peliculas_edirActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        AdminPelicula ap= new AdminPelicula("./peliculas.txt");
+        ap.cargarArchivo();
+        
+        String s="";
+        for (Pelicula pe : ap.getListaPeliculas()) {
+            s+=pe.getNombre()+"\n";
+        }
+        System.out.println(s);
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jmi_ppm_peliculas_verActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_ppm_peliculas_verActionPerformed
+        
+        ta_verDetalles.append("Título: "+pelicula_seleccionada.getNombre()+"\n"
+                +"Duración: "+pelicula_seleccionada.getDuracion()+"\n"
+                +"Actor: "+pelicula_seleccionada.getActor()+"\n"
+                +"Director: "+pelicula_seleccionada.getDirector()+"\n"
+                +"Productora: "+pelicula_seleccionada.getProductora()+"\n"
+                +"Idioma: "+pelicula_seleccionada.getIdioma()+"\n"
+                +"Tiene Doblaje: "+pelicula_seleccionada.getDoblaje()+"\n"
+                +"Tiene Subs en Español: "+pelicula_seleccionada.getSubtitulos()+"\n"
+                );
+        
+    }//GEN-LAST:event_jmi_ppm_peliculas_verActionPerformed
+
     public void limpiarPeliculas(){
         tf_peliculas_nombre.setText("");
         cb_peliculas_cat.setSelectedIndex(0);
@@ -527,20 +626,21 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NeSfliS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NeSfliS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NeSfliS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NeSfliS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                new NeSfliS().setVisible(true);
             }
         });
     }
@@ -551,6 +651,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup btg_peliculas_dub;
     private javax.swing.ButtonGroup btg_peliculas_subs;
     private javax.swing.JComboBox<String> cb_peliculas_cat;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -563,6 +664,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JDialog jd_movies;
     private javax.swing.JDialog jd_series;
@@ -577,12 +680,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmi_ppm_peliculas_edir;
     private javax.swing.JMenuItem jmi_ppm_peliculas_ver;
     private javax.swing.JTree jt_peliculas;
+    private javax.swing.JTree jtree_producciones;
     private javax.swing.JPopupMenu ppm_peliculas;
     private javax.swing.JRadioButton rbm_dubs_no;
     private javax.swing.JRadioButton rbm_dubs_si;
     private javax.swing.JRadioButton rbm_subs_no;
     private javax.swing.JRadioButton rbm_subs_si;
     private javax.swing.JSpinner sp_peliculas_duracion;
+    private javax.swing.JTextArea ta_verDetalles;
     private javax.swing.JTextField tf_peliculas_actori;
     private javax.swing.JTextField tf_peliculas_director;
     private javax.swing.JTextField tf_peliculas_idioma;

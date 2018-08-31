@@ -1,1 +1,1 @@
-Avengers;124;Accion;Iron Man;No hay;No hay;Ingles;Si;No;
+Director1;Back to the Future;McFly;Director1;Ingles;SciFi;No;No;134;No Hay;Avengers;Todos;No Hay;Ingles;Accion;Si;Si;145;otro;Hulk;Hulk;verde;idioma;Suspenso;No;No;145;Si hay;Lord of the Rings;Frodo;No;Elfo;SciFi;Si;No;200;Bros;Matrix;Neo;Machine Ex;Inlges;SciFi;No;No;120;xcv;new;asdf;fdsa;34;Accion;No;No;3;
